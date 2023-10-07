@@ -1,6 +1,6 @@
 from django.conf import settings
 
-def ecommdetails(request):
+def SiteDetails(request):
     context = {
         'site_name':settings.SITE_NAME,
     }
