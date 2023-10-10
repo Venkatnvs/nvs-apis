@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.28.0/ace.js"></script>
-    <link href="{% static 'frontend/main/css/main.css' %}" rel="stylesheet" />
-    <link href="{% static 'frontend/main/css/style.css' %}" rel="stylesheet" />
+    <link href="{% static 'frontend/main/css/header.css' %}?" rel="stylesheet" />
+    <link href="{% static 'frontend/main/css/style.css' %}?" rel="stylesheet" />
     {% include 'frontend/base/_details/topscripts.html' %}
 
     {% block styles %}
@@ -34,6 +34,7 @@
 <body>
     {% block body_hidden %} 
     {% endblock body_hidden %}
+    {% include 'frontend/base/header.html' %}
 
     <main id="main" class="main">
         <div class="container mt-2">
@@ -42,6 +43,8 @@
             {% endblock content %}
         </div>
     </main>
+
+    {% include 'frontend/base/footer.html' %}
 
 
     <a href="#" class="back-to-top d-flex d-none align-items-center justify-content-center">

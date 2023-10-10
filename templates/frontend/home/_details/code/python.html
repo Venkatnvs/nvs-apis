@@ -1,0 +1,26 @@
+<div class="main-col col d-block">
+<div style="position:sticky;height:400px" class="col m-1 form-group d-block">
+<div class="editor1 editor-common" id="editor1">
+<pre>
+import requests
+import json
+
+reqUrl = "http://127.0.0.1:8000/api/zip/"
+
+headersList = {
+    "Accept": "*/*",
+    "Authorization": "token YOUR_TOKEN",
+    "Content-Type": "application/json" 
+}
+
+payload = json.dumps({
+    "zip":"560078"
+})
+
+response = requests.request("POST", reqUrl, data=payload,  headers=headersList)
+
+print(response.text)
+</pre>
+</div>
+</div>
+</div>
