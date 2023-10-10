@@ -10,6 +10,7 @@ from django.views.static import serve
 from django.http import HttpResponse
 from line_profiler import LineProfiler
 from django.core.cache import cache
+from .throttle import PaidUserThrottle,UnpaidUserThrottle
 
 profiler = LineProfiler()
 
@@ -17,16 +18,30 @@ data_zip = cache.get("zip_data")
 data = cache.get('state_data')
 
 class states_pin(APIView):
+    throttle_classes = []
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
+    def chcking_t(self,request):
+        user = request.user
+        if user.is_authenticated and user.is_superuser:
+            self.throttle_classes = [PaidUserThrottle]
+        elif user.is_authenticated and not user.is_superuser:
+            self.throttle_classes = [UnpaidUserThrottle]
+
+        self.check_throttles(request)
+        return True
+
     def get(self, request):
+        check = self.chcking_t(request)
+        print(check)
         states_data = []
         for values in data:
             states_data.append(values['state'])
         return Response(list(states_data),status=status.HTTP_200_OK)
     
     def post(self,request):
+        check = self.chcking_t(request)
         search_str = request.data['state']
         if search_str == 'Choose...':
             data_a = {'not_state'}
@@ -48,13 +63,26 @@ def Pin_dis(pin):
     return {"Data_c":data_res,"District":data_dist,'StateName':data_state,'Pincode':pin}
 
 class ZipCode(APIView):
+    throttle_classes = []
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
+    
+    def chcking_t(self,request):
+        user = request.user
+        if user.is_authenticated and user.is_superuser:
+            self.throttle_classes = [PaidUserThrottle]
+        elif user.is_authenticated and not user.is_superuser:
+            self.throttle_classes = [UnpaidUserThrottle]
+
+        self.check_throttles(request)
+        return True
 
     def get(self,request):
+        check = self.chcking_t(request)
         return Response({"you cannot get full data."},status=status.HTTP_200_OK)
 
     def post(self,request):
+        check = self.chcking_t(request)
         zip_str = request.data['zip']
         a = Pin_dis(zip_str)
         profiler.print_stats()

@@ -33,7 +33,7 @@ a:hover {
     cursor:pointer;  
 }
 .main{
-    margin-top: 70px !important;
+    margin-top: 60px !important;
     margin-bottom: 25px;
 }
 .footer {
@@ -51,4 +51,9 @@ a:hover {
     text-align: center;
     font-size: 13px;
     color: #012970;
+}
+@media screen and (max-width: 450px) {
+    .main{
+        margin-top: 50px !important;
+    }
 }

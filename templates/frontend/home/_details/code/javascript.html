@@ -1,27 +1,8 @@
+{% load nvsutils %}
 <div class="main-col col d-block">
 <div style="position:sticky;height:400px" class="col m-1 form-group d-block">
 <div class="editor3 editor-common" id="editor3">
-<pre>
-const data = JSON.stringify({
-"zip": "560078"
-});
-
-const xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
-
-xhr.addEventListener("readystatechange", function () {
-if (this.readyState === this.DONE) {
-    console.log(this.responseText);
-}
-});
-
-xhr.open("POST", "http://127.0.0.1:8000/api/zip/");
-xhr.setRequestHeader("Accept", "*/*");
-xhr.setRequestHeader("Authorization", "token YOUR_TOKEN");
-xhr.setRequestHeader("Content-Type", "application/json");
-
-xhr.send(data);
-</pre>
+<pre>{% replace_request_with_domain data.code request %}</pre>
 </div>
 </div>
 </div>

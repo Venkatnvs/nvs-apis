@@ -17,3 +17,19 @@ class EndPoints(models.Model):
 
     def __str__(self):
         return f'{self.title} --- {self.request_type}'
+    
+class CodeSnippets(models.Model):
+    api = models.ForeignKey(EndPoints,on_delete=models.CASCADE)
+    title = models.CharField(max_length=255,null=True,blank=True)
+    language = models.CharField(max_length=255,null=True)
+    code = models.TextField(null=True)
+    is_active = models.BooleanField(default=True)
+    is_free = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ['api', 'language']
+
+    def __str__(self):
+        return f'{self.api.title} --- {self.language}'
