@@ -2,10 +2,12 @@ asgiref==3.7.2
 Django
 django-cors-headers
 djangorestframework
-line-profiler
-py-spy
+gunicorn
+line-profiler==4.1.1
+packaging==23.2
+py-spy==0.3.14
 python-decouple
 pytz
 sqlparse
-tzdata
-gunicorn
+tzdata==2023.3
+whitenoise
