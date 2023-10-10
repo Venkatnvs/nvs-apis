@@ -6,5 +6,5 @@ line-profiler
 py-spy
 python-decouple
 pytz
-sqlparse==
+sqlparse
 tzdata
