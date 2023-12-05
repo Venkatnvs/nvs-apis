@@ -1,0 +1,90 @@
+{% extends 'base/index.html' %}
+{% load nvsutils %}
+{% load static %}
+
+{% block title %}
+{{data.title | truncatechars:25}} | {{site_name}}
+{% endblock title %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'apifrontend_home' %}">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{data.title}}</li>
+    </ol>
+</nav>
+<div class="row d-flex">
+    <h4>{{data.title}}</h4>
+    <div class="col">
+        <div class="card p-1 m-1 bg-{{color}} bg-opacity-10 border border-{{color}} rounded-end">
+            <div class="card-body p-0 m-0">
+                <div class="d-flex col">
+                    <div class="d-flex col">
+                        <div class="badge bg-{{color}} justify-content-center d-flex align-items-center p-2">{{data.request_type}}</div>
+                        <h6 class="justify-content-center d-flex align-items-center fw-semibold p-0 m-0 mx-3">{{data.request}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h5 class="mt-2">Description</h5>
+    <p class="m-0">{{data.description}}</p>
+{% include 'home/_details/languages_tabs.html' with data=data2 %}
+                <div class="">
+                        <h4 class="mt-3">Request</h4>
+                        <div class="code">
+<pre>
+{% replace_request_with_domain data.request_input request %}
+</pre>
+                        </div>
+                        <h4 class="m-0 p-0 mt-3">Response</h4>
+                        <h5 class="m-0 p-0"><span class="badge text-bg-success rounded-pill">Status Code: 200</span></h5>
+                        <div class="code">
+<pre>
+{{data.request_output}}
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'home/css/main.css' %}?">
+{% endblock styles %}
+
+
+{% block scripts %}
+<script>
+    {% for i in data2 %}
+            {% if i.language == "Python" %}
+            var editor = ace.edit("editor1");
+            //editor.setTheme("ace/theme/monokai");
+            editor.setTheme("ace/theme/xcode");
+            editor.session.setMode("ace/mode/python");
+            editor.setReadOnly(true);
+            {% elif i.language == "JavaScript" %}
+            var editor3 = ace.edit("editor3");
+            //editor3.setTheme("ace/theme/monokai");
+            editor3.setTheme("ace/theme/xcode");
+            editor3.session.setMode("ace/mode/javascript");
+            editor3.setReadOnly(true);
+            {% elif i.language == "Html" %}
+            var editor2 = ace.edit("editor2");
+            //editor2.setTheme("ace/theme/monokai");
+            editor2.setTheme("ace/theme/xcode");
+            editor2.session.setMode("ace/mode/html");
+            editor2.setReadOnly(true);
+            {% elif i.language == "Php" %}
+            var editor4 = ace.edit("editor4");
+            //editor4.setTheme("ace/theme/monokai");
+            editor4.setTheme("ace/theme/xcode");
+            editor4.session.setMode("ace/mode/php");
+            editor4.setReadOnly(true);
+            {% endif %}
+    {% endfor %}
+</script>
+{% endblock scripts %}

@@ -1,0 +1,29 @@
+{% if data %}
+<h5 class="mt-3">Implementation in Different Languages</h5>
+<div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        {% for i in data %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link {% if forloop.counter == 1 %}active{% endif %}" id="{{i.language}}-tab" data-bs-toggle="tab" data-bs-target="#{{i.language}}-tab-pane" type="button"
+                    role="tab" aria-controls="{{i.language}}-tab-pane" aria-selected="true">{{i.language}}</button>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        {% for i in data %}
+            <div class="tab-pane fade {% if forloop.counter == 1 %}show active{% endif %}" id="{{i.language}}-tab-pane" role="tabpanel" aria-labelledby="{{i.language}}-tab" tabindex="0">
+            {% if i.language == "Python" %}
+                {% include 'home/_details/code/python.html' with data=i %}
+            {% elif i.language == "JavaScript" %}
+                {% include 'home/_details/code/javascript.html' with data=i %}
+            {% elif i.language == "Html" %}
+                {% include 'home/_details/code/html.html' with data=i %}
+            {% elif i.language == "Php" %}
+                {% include 'home/_details/code/php.html' with data=i %}
+            {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+{% endif %}

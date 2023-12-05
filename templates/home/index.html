@@ -1,0 +1,13 @@
+{% extends 'base/index.html' %} 
+
+{% block title %}
+EndPoints | {{site_name}}
+{% endblock title %}
+
+{% block content %}
+<div class="col p-1 m-1">
+    {% for i,k in data %}
+        {% include 'home/home_card.html' with data=i color=k %}
+    {% endfor %}
+</div>
+{% endblock content %}
